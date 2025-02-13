@@ -6,4 +6,5 @@ E -- F;
 F -- D;
 B -- C [weight=1];
 C -- D [weight=1];
+K -- D [weight=4];
 }

@@ -31,10 +31,7 @@ if words[3] == '':
     print("Entrada inválida. O grafo deve ter, pelo menos, uma conexão.")
     exit()
 
-print(words)
 connections = []
-vertex = []
-
 index = 3
 while words[index] != '}':
     if words[index + 1] != '--':
@@ -48,7 +45,7 @@ while words[index] != '}':
     weight = 1
 
     if vertexB[-1] == ';': # caso tenha encerrado é porque não tem peso personalizado
-        connections.append((vertexA, vertexB[:-1], 1))
+        connections.append((vertexA, vertexB[:-1], 1)) # vertice a, vertice b, peso
     else:
         weight_str = words[index + 3]
 
@@ -63,7 +60,50 @@ while words[index] != '}':
 
     index += 3
 
+vertices = []
+for connection in connections:
+    if connection[0] not in vertices:
+        vertices.append(connection[0])
+    if connection[1] not in vertices:
+        vertices.append(connection[1])
 
-        
-    print(connections)
-    input("")
+for index in range(len(vertices)):
+    for j in range(len(connections)):
+        if connections[j][0] == vertices[index]:
+            connections[j] = (index, connections[j][1], connections[j][2])
+        if connections[j][1] == vertices[index]:
+            connections[j] = (connections[j][0], index, connections[j][2])
+
+for index in range(len(vertices)):
+    connections_vertices = []
+
+    for connection in connections:
+        if connection[0] == index:
+            connections_vertices.append(connection)
+    print(connections_vertices)
+
+########## ALGORITMO A* ##########
+
+index_inicial = 0
+index_final = 4
+open_list = [{
+    'index': index_inicial,
+    'f': 0, # f = g + h
+    'g': 0, # custo do nó inicial até ele
+    'h': 0, # heuristica
+    "parent": None
+}]
+close_list = []
+
+stop = False
+while stop != True:
+    stop = True
+
+    for item in open_list:
+        print(item)
+    exit()
+
+
+
+# print(vertices)
+# print(connections)
