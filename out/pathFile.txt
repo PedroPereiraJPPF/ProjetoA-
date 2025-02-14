@@ -1,9 +1,10 @@
 graph G {
-A -- B [weight=1, color=blue, penwidth=2];
-A -- D [weight=20];
+A -- B [weight=1];
+A -- D [weight=2, color=blue, penwidth=2];
 A -- E [weight=1];
 E -- F;
 F -- D;
-B -- C [weight=1, color=blue, penwidth=2];
-C -- D [weight=1, color=blue, penwidth=2];
+B -- C [weight=1];
+C -- D;
+K -- D [weight=4];
 }

@@ -13,6 +13,27 @@ def save_graph_file(text, filename):
     with open(filename, 'w') as file:
         file.write(text)
 
+def ItemIsOnList(list, item_index):
+    for item in list:
+        if item['index'] == item_index:
+            return True
+    return False
+
+def finalizar(close_list, index_start, index_end):
+    path_graph = []
+
+    while index_end != None:
+        for item in close_list:
+            if item['index'] == index_end:
+                path_graph.append(vertices[item['index']])
+                index_end = item["parent"]
+                break
+
+    path_graph = list(reversed(path_graph))
+    print(path_graph)
+
+    exit()
+
 dot_content = read_graph_file("./in/graph.txt").to_string()
 
 words = dot_content.split()
@@ -74,13 +95,17 @@ for index in range(len(vertices)):
         if connections[j][1] == vertices[index]:
             connections[j] = (connections[j][0], index, connections[j][2])
 
+connections_vertices = []
 for index in range(len(vertices)):
-    connections_vertices = []
+    vertex_connections = []
 
     for connection in connections:
         if connection[0] == index:
-            connections_vertices.append(connection)
-    print(connections_vertices)
+            vertex_connections.append(connection)
+        if connection[1] == index:
+            vertex_connections.append(connection)
+
+    connections_vertices.append(vertex_connections)
 
 ########## ALGORITMO A* ##########
 
@@ -95,15 +120,76 @@ open_list = [{
 }]
 close_list = []
 
-stop = False
-while stop != True:
-    stop = True
+etapa = 0
+while True:
+    etapa += 1
 
+    index_melhor = 0
+    custo_melhor = open_list[0]['g']
+    count = 0
     for item in open_list:
-        print(item)
-    exit()
+        if item['g'] < custo_melhor:
+            custo_melhor = item['g'] # trocar para heuristica depois
+            index_melhor = count
+        count += 1
 
+    item = open_list.pop(index_melhor)
+    close_list.append(item)
 
+    index_item = item['index']
+    item_connections = connections_vertices[index_item]
 
-# print(vertices)
-# print(connections)
+    if item['index'] == index_final:
+        finalizar(close_list, index_inicial, index_final)
+    
+    for connection in item_connections:
+        item_destiny = connection[1]
+
+        if item_destiny == index_item:
+            item_destiny = connection[0]
+
+        isOnCloseList = ItemIsOnList(close_list, item_destiny)
+
+        if isOnCloseList == False:
+            destiny_value = connection[1]
+            if connection[0] != index_item:
+                destiny_value = connection[0]
+            weight = connection[2]
+
+            # Checa se o valor de destino já foi testado
+            checked = False
+            for item_open in close_list:
+                if item_open['index'] == destiny_value:
+                    checked = True
+                    break
+
+            is_opened = ItemIsOnList(open_list, destiny_value)
+
+            if is_opened == True:
+                new_weight = weight + item_open['g']
+
+                for i in range(len(open_list)):
+                    if destiny_value == open_list[i]['index']:
+                        if open_list[i]['g'] > new_weight:
+                            open_list[i] = {
+                                'index': destiny_value,
+                                'f': 0,
+                                'g': new_weight,
+                                'h': 0,
+                                'parent': index_item
+                            }
+
+            else:
+                is_closed = ItemIsOnList(close_list, destiny_value)
+                
+                if is_closed == False:
+                    open_list.append({
+                        'index': destiny_value,
+                        'f': 0, # mudar para peso + heuristica
+                        'g': weight + item_open['g'],
+                        'h': 0,
+                        'parent': index_item
+                    })
+
+#print(vertices)
+#print(connections)

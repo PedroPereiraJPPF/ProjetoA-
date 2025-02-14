@@ -2,9 +2,9 @@ graph G {
 A -- B [weight=1];
 A -- D [weight=2];
 A -- E [weight=1];
-E -- F;
+E -- F [weight=3];
 F -- D;
-B -- C [weight=1];
+B -- C [weight=3];
 C -- D;
 K -- D [weight=4];
 }
