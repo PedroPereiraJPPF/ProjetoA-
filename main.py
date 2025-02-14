@@ -1,6 +1,7 @@
 import pydot
 import networkx as nx
 
+path_graph = []
 
 def read_graph_file(filename):
     """ Lê um arquivo DOT e retorna um objeto Graphviz """
@@ -30,9 +31,20 @@ def finalizar(close_list, index_start, index_end):
                 break
 
     path_graph = list(reversed(path_graph))
-    print(path_graph)
+    return path_graph
 
-    exit()
+def generate_dot_path(original_dot, path):
+    """Gera um novo DOT destacando o caminho encontrado."""
+    new_graph = pydot.graph_from_dot_data(original_dot)[0]
+
+    for i in range(len(path) - 1):
+        for edge in new_graph.get_edges():
+            if (edge.get_source() == path[i] and edge.get_destination() == path[i+1]) or \
+               (edge.get_source() == path[i+1] and edge.get_destination() == path[i]):
+                edge.set_color("blue")
+                edge.set_penwidth(2)
+
+    return new_graph.to_string()
 
 dot_content = read_graph_file("./in/graph.txt").to_string()
 
@@ -109,8 +121,10 @@ for index in range(len(vertices)):
 
 ########## ALGORITMO A* ##########
 
-index_inicial = 0
-index_final = 4
+label_start = 'A'
+label_end = 'D'
+index_inicial = vertices.index(label_start)
+index_final = vertices.index(label_end)
 open_list = [{
     'index': index_inicial,
     'f': 0, # f = g + h
@@ -125,6 +139,11 @@ while True:
     etapa += 1
 
     index_melhor = 0
+
+    if len(open_list) == 0:
+        print("Não foi possível encontrar um caminho.")
+        exit()
+
     custo_melhor = open_list[0]['g']
     count = 0
     for item in open_list:
@@ -140,7 +159,15 @@ while True:
     item_connections = connections_vertices[index_item]
 
     if item['index'] == index_final:
-        finalizar(close_list, index_inicial, index_final)
+        graph_path = finalizar(close_list, index_inicial, index_final)
+
+        new_graph = generate_dot_path(dot_content, graph_path)
+
+        save_graph_file(new_graph, "./out/pathFile.txt")
+
+        print("Caminho encontrado: \n", graph_path)
+
+        exit()
     
     for connection in item_connections:
         item_destiny = connection[1]
@@ -191,5 +218,4 @@ while True:
                         'parent': index_item
                     })
 
-#print(vertices)
-#print(connections)
+
