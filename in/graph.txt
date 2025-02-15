@@ -14,7 +14,6 @@ graph G {
     Vitoria -- Salvador [weight=1319];
     BeloHorizonte -- Vitoria [weight=524];
     BeloHorizonte -- Salvador [weight=1372];
-    RioDeJaneiro -- SaoPaulo [weight=429];
     RioDeJaneiro -- BeloHorizonte [weight=434];
     RioDeJaneiro -- Vitoria [weight=521];
     SaoPaulo -- BeloHorizonte [weight=586];
