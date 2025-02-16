@@ -121,8 +121,8 @@ for index in range(len(vertices)):
 
 ########## ALGORITMO A* ##########
 
-label_start = 'BoaVista'
-label_end = 'Aracaju'
+label_start = 'Mossoro'
+label_end = 'CampoGrande'
 index_inicial = vertices.index(label_start)
 index_final = vertices.index(label_end)
 open_list = [{

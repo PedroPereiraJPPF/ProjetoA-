@@ -29,6 +29,11 @@ graph G {
     Goiania -- Palmas [weight=874];
     Goiania -- BeloHorizonte [weight=906];
     Goiania -- CampoGrande [weight=935];
+    Brasilia -- Goiania [weight=209];
+    Brasilia -- BeloHorizonte [weight=624];
+    Brasilia -- Salvador [weight=1448];
+    Brasilia -- Palmas [weight=973];
+    Brasilia -- Cuiaba [weight=1133];
     Cuiaba -- CampoGrande [weight=694];
     Cuiaba -- Goiania [weight=934];
     Cuiaba -- Palmas [weight=1295];
