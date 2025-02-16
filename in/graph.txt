@@ -9,8 +9,10 @@ graph G {
     Aracaju -- Salvador [weight=356];
     Salvador -- Teresina [weight=1142];
     Teresina -- SaoLuis [weight=446];
+    Teresina -- Recife [weight=1126];
     Palmas -- SaoLuis [weight=1319];
     Palmas -- Salvador [weight=1448];
+    Palmas -- Teresina [weight=1250];
     Vitoria -- Salvador [weight=1319];
     BeloHorizonte -- Vitoria [weight=524];
     BeloHorizonte -- Salvador [weight=1372];
