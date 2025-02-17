@@ -93,6 +93,7 @@ while words[index] != '}':
 
     index += 3
 
+# Armazenamento de labels
 vertices = []
 for connection in connections:
     if connection[0] not in vertices:
@@ -100,6 +101,7 @@ for connection in connections:
     if connection[1] not in vertices:
         vertices.append(connection[1])
 
+# Para cada conexão, adiciona-se a variável peso
 for index in range(len(vertices)):
     for j in range(len(connections)):
         if connections[j][0] == vertices[index]:
@@ -107,6 +109,7 @@ for index in range(len(vertices)):
         if connections[j][1] == vertices[index]:
             connections[j] = (connections[j][0], index, connections[j][2])
 
+# Separa as conexões de cada vertice
 connections_vertices = []
 for index in range(len(vertices)):
     vertex_connections = []
@@ -121,8 +124,13 @@ for index in range(len(vertices)):
 
 ########## ALGORITMO A* ##########
 
-label_start = 'Mossoro'
-label_end = 'CampoGrande'
+label_start = input('Cidade Inicial: ')
+label_end = input('Cidade Final: ')
+
+if label_start not in vertices or label_end not in vertices:
+    print("Erro: Cidade inicial ou final não encontrada no grafo.")
+    exit()
+
 index_inicial = vertices.index(label_start)
 index_final = vertices.index(label_end)
 open_list = [{
