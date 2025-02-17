@@ -49,7 +49,11 @@ def generate_dot_path(original_dot, path):
 
 dot_content = read_graph_file("./in/graph.txt").to_string()
 graph = parse_graph(dot_content)
-path = a_star_search(graph, "A", "D")
+
+label_start = input('Cidade Inicial: ')
+label_end = input('Cidade Final: ')
+
+path = a_star_search(graph, label_start, label_end)
 
 if path:
     print("Caminho encontrado:", path)
