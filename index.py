@@ -43,7 +43,8 @@ def generate_dot_path(original_dot, path):
             if (edge.get_source() == path[i] and edge.get_destination() == path[i+1]) or \
                (edge.get_source() == path[i+1] and edge.get_destination() == path[i]):
                 edge.set_color("blue")
-                edge.set_penwidth(2)
+                edge.set_penwidth(5)
+                edge.set_label(edge.get('weight'))
 
     return new_graph.to_string()
 
