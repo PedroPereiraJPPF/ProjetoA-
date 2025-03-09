@@ -1,6 +1,6 @@
 import pydot
 import networkx as nx
-
+import GraphRender
 
 path_graph = []
 
@@ -18,6 +18,7 @@ def save_graph_file(text, filename):
 def generate_dot_path(original_dot, path):
     """Gera um novo DOT destacando o caminho encontrado."""
     new_graph = pydot.graph_from_dot_data(original_dot)[0]
+    path = [item for sublist in path for item in sublist]
 
     for i in range(len(path) - 1):
         for edge in new_graph.get_edges():
@@ -106,6 +107,8 @@ for connection in connections:
     if connection[1] not in vertices:
         vertices.append(connection[1])
 
+count = 0
+
 while len(connections_kruskal) < len(vertices) - 1:
     G = nx.Graph()
     
@@ -115,7 +118,15 @@ while len(connections_kruskal) < len(vertices) - 1:
     if checkCicle(connections_kruskal):
         connections_kruskal.pop(-1)
     else:
-        # GERAR O GRÁFICO ITERATIVO A PARTIR DAQUI
-        # ADICIONA UMA CONEXÃO NOVA A CADA ETAPA
-        print(connections_kruskal)
-        print("-")
+        # tô usando o loop para gerar imagens do caminho
+        graph_str = generate_dot_path(dot_content, connections_kruskal)
+        graph = pydot.graph_from_dot_data(graph_str)[0]
+        
+        count += 1
+        graph.write_png(f'./out/graph_iteration_{count}.png')
+
+        print("Etapa: ", count)
+
+# Aqui o grafo final é exibido
+graph_render = GraphRender.GraphRender(image_folder='./out')
+graph_render.navigate()
