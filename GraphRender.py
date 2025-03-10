@@ -3,7 +3,7 @@ import os
 import re
 
 class GraphRender:
-    def __init__(self, image_folder, algorithm, screen_width=800, screen_height=600):
+    def __init__(self, image_folder, algorithm, screen_width=1320, screen_height=920, screen_name="Navegar entre Imagens"):
         self.image_folder = image_folder
         self.screen_width = screen_width
         self.screen_height = screen_height
@@ -15,7 +15,7 @@ class GraphRender:
         pygame.init()
 
         self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
-        pygame.display.set_caption("Navegar entre Imagens")
+        pygame.display.set_caption(screen_name)
 
         self.load_images()
 

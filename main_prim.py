@@ -140,6 +140,6 @@ while len(connections_prim) < len(vertices) - 1:
         print("Etapa: ", count)
 
 # Aqui o grafo final é exibido
-graph_render = GraphRender.GraphRender(image_folder='./out', algorithm='prim')
+graph_render = GraphRender.GraphRender(image_folder='./out', algorithm='prim', screen_name="Prim")
 graph_render.navigate()
 

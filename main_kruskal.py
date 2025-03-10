@@ -128,5 +128,5 @@ while len(connections_kruskal) < len(vertices) - 1:
         print("Etapa: ", count)
 
 # Aqui o grafo final é exibido
-graph_render = GraphRender.GraphRender(image_folder='./out', algorithm='kruskal')
+graph_render = GraphRender.GraphRender(image_folder='./out', algorithm='kruskal', screen_name="Kruskal")
 graph_render.navigate()
