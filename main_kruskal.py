@@ -123,10 +123,10 @@ while len(connections_kruskal) < len(vertices) - 1:
         graph = pydot.graph_from_dot_data(graph_str)[0]
         
         count += 1
-        graph.write_png(f'./out/graph_iteration_{count}.png')
+        graph.write_png(f'./out/graph_iteration_{count}_kruskal.png')
 
         print("Etapa: ", count)
 
 # Aqui o grafo final é exibido
-graph_render = GraphRender.GraphRender(image_folder='./out')
+graph_render = GraphRender.GraphRender(image_folder='./out', algorithm='kruskal')
 graph_render.navigate()

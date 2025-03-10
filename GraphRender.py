@@ -3,12 +3,13 @@ import os
 import re
 
 class GraphRender:
-    def __init__(self, image_folder, screen_width=800, screen_height=600):
+    def __init__(self, image_folder, algorithm, screen_width=800, screen_height=600):
         self.image_folder = image_folder
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.image_files = []
         self.current_image_index = 0
+        self.algorithm = algorithm
         self.screen = None
 
         pygame.init()
@@ -20,7 +21,7 @@ class GraphRender:
 
     def load_images(self):
         """Carrega e organiza as imagens na pasta em ordem numérica"""
-        self.image_files = [f for f in os.listdir(self.image_folder) if f.endswith(('png', 'jpg', 'jpeg', 'bmp', 'gif'))]
+        self.image_files = [f for f in os.listdir(self.image_folder) if re.match(r'graph_iteration_\d+_' + re.escape(self.algorithm), f)]
 
         self.image_files.sort(key=self.extract_iteration_number)
 
